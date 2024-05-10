@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Leamon Randall">
+  <title>Dr. StateMachine</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Dr. StateMachine</h1>
+  <p class="author">Leamon Randall</p>
+</section>
+
+<section>
+<section id="dr.-statemachine" class="title-slide slide level1">
+<h1>Dr. StateMachine</h1>
+
+</section>
+<section id="or-how-i-learned-to-stop-worrying-and-love-the-finite"
+class="slide level2">
+<h2>or: How I learned to stop worrying and love the finite</h2>
+</section>
+<section id="or" class="slide level2">
+<h2>or…</h2>
+</section>
+<section id="why-when-and-where-to-use-state-machines"
+class="slide level2">
+<h2>Why, when, and where to use state machines?</h2>
+<p>Also…</p>
+<ul>
+<li>How do you implement a state machine?</li>
+<li>What the heck is a state machine anyway?</li>
+<li>Who is this strange guy at the front of the room?</li>
+</ul>
+</section>
+<section id="a-quick-note-about-the-title" class="slide level2">
+<h2>A quick note about the title</h2>
+<p>If you haven’t seen <em>Dr. Strangelove</em>, go watch it!</p>
+</section></section>
+<section>
+<section id="about-me" class="title-slide slide level1">
+<h1>About me</h1>
+
+</section>
+<section id="leamon-randall" class="slide level2">
+<h2>Leamon Randall</h2>
+<ul>
+<li>Eagle Scout</li>
+<li>TK</li>
+</ul>
+</section>
+<section id="i-am-not-a-rock-climber" class="slide level2">
+<h2>I am not a rock climber</h2>
+<p>…but I’m open to exploring it.</p>
+</section>
+<section id="my-career-in-tech-and-coding" class="slide level2">
+<h2>My career in tech and coding</h2>
+<ul>
+<li>I’ve been around technology for quite a while, but I’m fairly new to
+tech as a career</li>
+<li>I am an autodidact</li>
+<li>I’m open to collaboration</li>
+</ul>
+</section></section>
+<section>
+<section id="a-beautiful-thing" class="title-slide slide level1">
+<h1>A beautiful thing</h1>
+
+</section>
+<section class="slide level2">
+
+<blockquote>
+<p>Nifty quote here TK</p>
+</blockquote>
+</section>
+<section id="the-journey" class="slide level2">
+<h2>The journey</h2>
+<ul>
+<li>Dunning-Kruger</li>
+<li>Impostor syndrome</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<blockquote>
+<p>As our island of knowledge grows, so does the shore of our
+ignorance.</p>
+</blockquote>
+<p>– John Archibald Wheeler</p>
+</section>
+<section id="the-important-thing" class="slide level2">
+<h2>The important thing</h2>
+<p>…is the size of the island, not the size of the shore. Keep moving
+from left to right on that graph.</p>
+</section></section>
+<section>
+<section id="a-brief-history-lesson-turing-machines"
+class="title-slide slide level1">
+<h1>A brief history lesson: Turing machines</h1>
+
+</section>
+<section id="what-is-a-turing-machine" class="slide level2">
+<h2>What is a Turing machine?</h2>
+<ul>
+<li>Infinite tape that holds a set of symbols (or empty spaces)</li>
+<li>A mechanism (“head”) which can:
+<ul>
+<li>Move left and right</li>
+<li>Read values</li>
+<li>Erase values</li>
+<li>Write values</li>
+</ul></li>
+<li>A separate set of instructions
+<ul>
+<li>Can hold a limited amount of data or state</li>
+<li>TK conditional branching, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<blockquote>
+<p>It is my contention that these operations include all those which are
+used in the computation of a number.</p>
+</blockquote>
+<p>– Alan Turing</p>
+</section>
+<section id="in-other-words" class="slide level2">
+<h2>In other words</h2>
+<p>Using a Turing machine, we can compute anything that is
+computable.</p>
+</section>
+<section id="but-charles-did-it-first" class="slide level2">
+<h2>But Charles did it first!</h2>
+</section>
+<section id="the-impact" class="slide level2">
+<h2>The impact</h2>
+<p>What was originally a theoretical thought experiment became the basis
+for computing today.</p>
+</section>
+<section id="turing-completeness" class="slide level2">
+<h2>Turing completeness</h2>
+<ul>
+<li>Most popular architectures and programming languages today are
+Turing complete</li>
+<li>They can be made to compute any function that is computable</li>
+<li>…within natural restrictions</li>
+</ul>
+</section>
+<section id="practically" class="slide level2">
+<h2>Practically</h2>
+<ul>
+<li>We have more inputs and outputs</li>
+<li>We don’t have unlimited memory</li>
+<li>Today’s computers are incredibly versatile</li>
+</ul>
+</section>
+<section id="unlimited-potential" class="slide level2">
+<h2>Unlimited potential</h2>
+<ul>
+<li>We are no longer limited to machines that do one thing</li>
+<li>Math
+<ul>
+<li>Computing digits of pi</li>
+<li>Discovering prime numbers</li>
+<li>Calculating hashes of other values</li>
+</ul></li>
+<li>Procedural problems
+<ul>
+<li>Solving mazes</li>
+<li>Sorting lists</li>
+</ul></li>
+</ul>
+</section>
+<section id="we-build-on-these-small-solutions" class="slide level2">
+<h2>We build on these small solutions</h2>
+<p>…to help us solve ever-larger challenges.</p>
+</section>
+<section id="theres-an-app-for-that" class="slide level2">
+<h2>“There’s an app for that”</h2>
+</section>
+<section id="and-perhaps" class="slide level2">
+<h2>And perhaps…</h2>
+<p>…we can use this computing power to answer the most important
+question of all…</p>
+</section>
+<section id="can-it-run-doom" class="slide level2">
+<h2>Can it run Doom?</h2>
+</section></section>
+<section>
+<section id="what-is-a-state-machine" class="title-slide slide level1">
+<h1>What is a state machine?</h1>
+
+</section>
+<section id="a-subset-of-turing-machine" class="slide level2">
+<h2>A subset of Turing machine</h2>
+<ul>
+<li>Takes input</li>
+<li>Stores data about it’s current state</li>
+<li>Returns an output</li>
+</ul>
+</section>
+<section id="why-limit-ourselves" class="slide level2">
+<h2>Why limit ourselves?</h2>
+<p>“I thought you were just singing the praises of the unlimited
+potential of a Turing machine?”</p>
+</section>
+<section id="something-to-mull-over" class="slide level2">
+<h2>Something to mull over</h2>
+<blockquote>
+<p>The purpose of abstracting is not to be vague, but to create a new
+semantic level in which one can be absolutely precise.</p>
+</blockquote>
+<p>– Edsger Dijkstra</p>
+</section></section>
+<section>
+<section id="moving-on" class="title-slide slide level1">
+<h1>Moving on…</h1>
+
+</section>
+<section id="i-will-not-be-talking-about-transitions-systems"
+class="slide level2">
+<h2>I will not be talking about transitions systems</h2>
+<ul>
+<li>Technically a state machine, but a non-finite version of it</li>
+<li>More akin to functions with static variables</li>
+<li>The PIO on the RP2040 is a form of a non-finite state machine like
+this</li>
+</ul>
+</section></section>
+<section>
+<section id="finite-state-machines" class="title-slide slide level1">
+<h1><em>Finite</em>-state machines</h1>
+
+</section>
+<section id="i-will-be-talking-about-finite-state-machines"
+class="slide level2">
+<h2>I will be talking about finite-state machines</h2>
+<ul>
+<li>(Also called finite-state automata)</li>
+<li>…and their extended versions</li>
+</ul>
+</section>
+<section id="what-makes-a-state-machine-finite" class="slide level2">
+<h2>What makes a state machine finite?</h2>
+<ul>
+<li>A limited number of states it can be in</li>
+<li>A limited number of inputs that it can respond to</li>
+<li>Transitions defined for each state, which tell it which state to go
+to for a given input</li>
+<li>Still produces an output</li>
+</ul>
+</section></section>
+<section>
+<section id="outputs" class="title-slide slide level1">
+<h1>Outputs</h1>
+
+</section>
+<section id="simplest-case" class="slide level2">
+<h2>Simplest case</h2>
+<ul>
+<li>The whole state machine returns a value, like true or false</li>
+</ul>
+</section>
+<section id="entry-and-exit-actions" class="slide level2">
+<h2>Entry and exit actions</h2>
+<ul>
+<li>Functions which can be run on entry to, and exit from, a state</li>
+</ul>
+</section>
+<section id="states-can-transition-to-themselves" class="slide level2">
+<h2>States can transition to themselves</h2>
+<ul>
+<li>If handled internally
+<ul>
+<li>The state stays the same and no actions are run</li>
+</ul></li>
+<li>If handled externally
+<ul>
+<li>The state runs its exit action and then re-enters itself, running
+its entry action</li>
+</ul></li>
+</ul>
+</section>
+<section id="acting-on-input-as-well-as-state" class="slide level2">
+<h2>Acting on input as well as state</h2>
+<ul>
+<li>Mealy Machine
+<ul>
+<li>(As opposed to a Moore Machine)</li>
+</ul></li>
+<li>Adds some complexity</li>
+<li>…but can be useful</li>
+</ul>
+</section></section>
+<section>
+<section id="two-ways-to-represent-state-machines"
+class="title-slide slide level1">
+<h1>Two ways to represent state machines</h1>
+
+</section>
+<section class="slide level2">
+
+<p>…that even the marketing team can understand.</p>
+</section>
+<section class="slide level2">
+
+<p>(Sorry, marketing people. We love you.)</p>
+</section></section>
+<section>
+<section id="state-diagrams" class="title-slide slide level1">
+<h1>State diagrams</h1>
+
+</section>
+<section id="a-basic-example" class="slide level2">
+<h2>A basic example</h2>
+<p>A directed graph showing which states to transition to when an input
+or event happens (depending on the current state).</p>
+</section>
+<section id="not-a-flowchart" class="slide level2">
+<h2><em>Not</em> a flowchart!</h2>
+</section></section>
+<section>
+<section id="hierarchical-state-machines"
+class="title-slide slide level1">
+<h1>Hierarchical state machines</h1>
+
+</section>
+<section id="super-states-and-sub-states" class="slide level2">
+<h2>Super-states and sub-states</h2>
+<ul>
+<li>Can have it’s own entry and exit actions</li>
+<li>Similar to inheritance in OOP</li>
+</ul>
+</section>
+<section id="super-states-and-transitions" class="slide level2">
+<h2>Super-states and transitions</h2>
+<ul>
+<li>We can transition directly to a sub-state</li>
+<li>Or we can transition to:
+<ul>
+<li>The super-state’s starting sub-state</li>
+<li>The super-state’s shallow history</li>
+<li>The super-state’s deep history</li>
+</ul></li>
+</ul>
+</section>
+<section id="an-example" class="slide level2">
+<h2>An example</h2>
+<p>When creating a UI, when a user hits the back button, we may not want
+to start them over at the beginning of the list.</p>
+</section></section>
+<section id="orthogonal-state-machines"
+class="title-slide slide level1">
+<h1>Orthogonal state machines</h1>
+
+</section>
+
+<section>
+<section id="extended-state-machines" class="title-slide slide level1">
+<h1>Extended state machines</h1>
+
+</section>
+<section id="guard-conditions" class="slide level2">
+<h2>Guard conditions</h2>
+<ul>
+<li>Only allow a transition to happen out of a state if certain
+conditions are met</li>
+<li>The state machine is <strong>no longer deterministic</strong></li>
+<li>Often times you can achieve the same goal with a finite-state
+machine</li>
+</ul>
+</section>
+<section id="conditional-junctions" class="slide level2">
+<h2>Conditional junctions</h2>
+<ul>
+<li>Determine which transition to follow based on a set of
+conditions</li>
+</ul>
+</section>
+<section id="regular-junctions" class="slide level2">
+<h2>Regular junctions</h2>
+<ul>
+<li>TK</li>
+<li>Example: AFK</li>
+</ul>
+</section>
+<section id="a-bit-of-a-advice" class="slide level2">
+<h2>A bit of a advice</h2>
+<p>Try to stay as close to simple as possible, else you end up negating
+the benefits of state machines.</p>
+</section></section>
+<section>
+<section id="state-tables" class="title-slide slide level1">
+<h1>State tables</h1>
+
+</section>
+<section id="state-table-example" class="slide level2">
+<h2>State table example</h2>
+<ul>
+<li>More compact</li>
+<li>Work best for <em>truly</em> finite-state machines
+<ul>
+<li>More complex setups require notes for explanation</li>
+</ul></li>
+</ul>
+</section>
+<section id="pivoting-the-state-table" class="slide level2">
+<h2>Pivoting the state table</h2>
+<ul>
+<li>Can use either states or events as column headers</li>
+</ul>
+</section></section>
+<section>
+<section id="how-can-you-create-state-machines"
+class="title-slide slide level1">
+<h1>How can you create state machines?</h1>
+
+</section>
+<section id="three-different-possibilities" class="slide level2">
+<h2>Three different possibilities</h2>
+</section>
+<section id="nested-switchcase-statements" class="slide level2">
+<h2>Nested switch/case statements</h2>
+<p>(Or if/then/else chains)</p>
+<ul>
+<li>Good for simple machines</li>
+<li>Can quickly become very long with more complex machines</li>
+</ul>
+</section>
+<section id="the-state-pattern" class="slide level2">
+<h2>The state pattern</h2>
+</section>
+<section id="state-tables-1" class="slide level2">
+<h2>State tables</h2>
+</section>
+<section id="which-to-choose" class="slide level2">
+<h2>Which to choose?</h2>
+</section></section>
+<section>
+<section id="where-can-you-use-state-machines"
+class="title-slide slide level1">
+<h1>Where can you use state machines?</h1>
+
+</section>
+<section id="embedded-systems" class="slide level2">
+<h2>Embedded systems</h2>
+</section>
+<section id="pattern-recognition-regex" class="slide level2">
+<h2>Pattern recognition – RegEx</h2>
+<ul>
+<li>Regular expressions are actually</li>
+</ul>
+</section>
+<section id="user-interfaces" class="slide level2">
+<h2>User interfaces</h2>
+</section>
+<section id="back-end-services" class="slide level2">
+<h2>Back-end services</h2>
+</section>
+<section id="video-games" class="slide level2">
+<h2>Video games</h2>
+</section>
+<section id="many-more" class="slide level2">
+<h2>Many more…</h2>
+</section></section>
+<section>
+<section id="when-should-you-use-a-state-machine"
+class="title-slide slide level1">
+<h1>When should you use a state machine?</h1>
+
+</section>
+<section id="more-often" class="slide level2">
+<h2>More often!</h2>
+</section>
+<section id="cons" class="slide level2">
+<h2>Cons</h2>
+</section>
+<section id="pros" class="slide level2">
+<h2>Pros</h2>
+</section>
+<section id="not-appropriate-for-every-situation" class="slide level2">
+<h2>Not appropriate for every situation</h2>
+</section>
+<section id="start-simple-and-extend-as-needed" class="slide level2">
+<h2>Start simple, and extend as needed</h2>
+</section></section>
+<section>
+<section id="why" class="title-slide slide level1">
+<h1>Why?</h1>
+
+</section>
+<section class="slide level2">
+
+<p>(Again)</p>
+</section>
+<section class="slide level2">
+
+<blockquote>
+<p>The purpose of abstracting is not to be vague, but to create a new
+semantic level in which one can be absolutely precise.</p>
+</blockquote>
+<p>– Edsger Dijkstra</p>
+</section>
+<section id="why-use-state-machines" class="slide level2">
+<h2>Why use state machines?</h2>
+<p>Constraints, when used properly, can help make our code better.</p>
+</section>
+<section id="bug-free-code-is-our-profession" class="slide level2">
+<h2>Bug free code is our profession</h2>
+<!-- *************************************************************** -->
+</section></section>
+<section>
+<section id="the-end" class="title-slide slide level1">
+<h1>The end</h1>
+
+</section>
+<section id="credits" class="slide level2">
+<h2>Credits</h2>
+<p>(if needed)</p>
+</section></section>
+<section>
+<section id="resources" class="title-slide slide level1">
+<h1>Resources</h1>
+
+</section>
+<section id="turing-machines" class="slide level2">
+<h2>Turing machines</h2>
+<ul>
+<li><p>Turing (1937), p. 232.</p></li>
+<li><p><a
+href="https://www.cs.virginia.edu/\~robins/Turing\_Paper\_1936.pdf"
+class="uri">https://www.cs.virginia.edu/\~robins/Turing\_Paper\_1936.pdf</a></p></li>
+<li><p>Babbage and Turing: Two Paths to Inventing the Computer</p></li>
+<li><p><a
+href="https://www.nathanzeldes.com/blog/2021/04/babbage-and-turing-two-paths-to-inventing-the-computer/"
+class="uri">https://www.nathanzeldes.com/blog/2021/04/babbage-and-turing-two-paths-to-inventing-the-computer/</a></p></li>
+<li><p>computability - Was Babbage’s Analytical Engine really
+turing-complete?</p></li>
+<li><p><a
+href="https://cstheory.stackexchange.com/questions/14262/was-babbages-analytical-engine-really-turing-complete"
+class="uri">https://cstheory.stackexchange.com/questions/14262/was-babbages-analytical-engine-really-turing-complete</a></p></li>
+<li><p>Let’s build Babbage’s ultimate mechanical computer</p></li>
+<li><p><a
+href="https://www.newscientist.com/article/mg20827915-500-lets-build-babbages-ultimate-mechanical-computer/"
+class="uri">https://www.newscientist.com/article/mg20827915-500-lets-build-babbages-ultimate-mechanical-computer/</a></p></li>
+<li><p>Alan Turing name-checks his predecessor Charles Babbage</p></li>
+<li><p><a
+href="https://www.wired.com/2012/06/alan-turing-name-checks-his-predecessor-charles-babbage/"
+class="uri">https://www.wired.com/2012/06/alan-turing-name-checks-his-predecessor-charles-babbage/</a></p></li>
+</ul>
+</section>
+<section id="state-machines-using-ttl-logic" class="slide level2">
+<h2>State machines using TTL logic</h2>
+<ul>
+<li>Finite State Machines | Sequential Circuits | Electronics
+Textbook</li>
+<li><a
+href="https://www.allaboutcircuits.com/textbook/digital/chpt-11/finite-state-machines/"
+class="uri">https://www.allaboutcircuits.com/textbook/digital/chpt-11/finite-state-machines/</a></li>
+</ul>
+</section></section>
+<section>
+<section id="contact-info" class="title-slide slide level1">
+<h1>Contact info</h1>
+
+</section>
+<section id="leamon-randall-1" class="slide level2">
+<h2>Leamon Randall</h2>
+</section>
+<section id="notes" class="slide level2">
+<h2>Notes</h2>
+<ul>
+<li>Show internal v. external handling of events</li>
+<li>Note that states do not need to be static, they can be active:
+“running, moving, jumping, fetching”.</li>
+<li>Include the fact that you can have multiple state machines within
+your program.</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="reveal.js/plugin/notes/notes.js"></script>
+  <script src="reveal.js/plugin/search/search.js"></script>
+  <script src="reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Dr. StateMachine</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/dist/theme/serif.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Dr. StateMachine</h1>
+</section>
+
+<section class="slide level2">
+
+<ul>
+<li><strong>We need to discuss actions</strong></li>
+</ul>
+</section>
+<section id="dr.-statemachine-or" class="slide level2">
+<h2>Dr. StateMachine, or:</h2>
+<h3 id="how-i-learned-to-stop-worrying-and-love-the-finite">How I
+learned to stop worrying and love the finite</h3>
+</section>
+<section class="slide level2">
+
+<p>or…</p>
+</section>
+<section id="when-where-and-why-should-i-use-state-machines"
+class="slide level2">
+<h2>When, where, and why should I use state machines?</h2>
+<ul>
+<li>How can I implement a state machine?</li>
+<li>What the heck is a state machine anyway?</li>
+<li>Who is this strange guy at the front of the room?</li>
+</ul>
+</section>
+<section id="about-me..." class="slide level2">
+<h2>About me...</h2>
+<ul>
+<li>Eagle Scout</li>
+<li>Etc.</li>
+</ul>
+</section>
+<section id="about-me...-1" class="slide level2">
+<h2>About me...</h2>
+<ul>
+<li>I’ve been around technology for quite a while, but I’m fairly new to
+tech as a career</li>
+<li>I’m open to collaboration</li>
+</ul>
+</section>
+<section id="a-quick-detour" class="slide level2">
+<h2>A quick detour</h2>
+<ul>
+<li>Dunning-Kruger</li>
+<li>Impostor syndrome</li>
+</ul>
+</section>
+<section id="a-quick-detour-1" class="slide level2">
+<h2>A quick detour</h2>
+<ul>
+<li>Where I stand in this journey</li>
+</ul>
+</section>
+<section id="a-quick-detour-2" class="slide level2">
+<h2>A quick detour</h2>
+<ul>
+<li>The important thing...</li>
+</ul>
+</section>
+<section id="a-quick-detour-3" class="slide level2">
+<h2>A quick detour</h2>
+<p>As our island of knowledge grows, so does the shore of our ignorance.
+– John Archibald Wheeler</p>
+</section>
+<section id="a-brief-history-lesson-turing-machines"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<p>Infinite tape that holds a set of symbols (or empty spaces)</p>
+<p>A mechanism (“head”) which can:</p>
+<ul>
+<li>Move left and right</li>
+<li>Read values</li>
+<li>Erase values</li>
+<li>Write values</li>
+</ul>
+<p>A separate set of instructions</p>
+<ul>
+<li>Can hold a limited amount of data</li>
+</ul>
+</section>
+<section id="a-brief-history-lesson-turing-machines-1"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<p>It is my contention that these operations include all those which are
+used in the computation of a number.</p>
+<ul>
+<li>Turing (1937), p. 232.
+(https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf)</li>
+</ul>
+</section>
+<section id="a-brief-history-lesson-turing-machines-2"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<ul>
+<li>In other words: Using a Turing machine, we can compute anything that
+is computable.</li>
+</ul>
+</section>
+<section id="a-brief-history-lesson-turing-machines-3"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<p>The impact:</p>
+<ul>
+<li>What was originally a theoretical thought experiment, became the
+basis for computing today.</li>
+<li>More inputs and outputs, limited memory</li>
+<li>Most popular programming languages today are Turing complete,
+meaning they can be made to compute anything that is computable.</li>
+</ul>
+</section>
+<section id="a-brief-history-lesson-turing-machines-4"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<p>Unlimited potential</p>
+<ul>
+<li>Computing digits of pi</li>
+<li>Calculating SHA256 values</li>
+<li>Solving mazes</li>
+<li>Or perhaps we can answer the most important question...</li>
+</ul>
+</section>
+<section id="a-brief-history-lesson-turing-machines-5"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<ul>
+<li>Can it run Doom?</li>
+</ul>
+</section>
+<section id="a-brief-history-lesson-turing-machines-6"
+class="slide level2">
+<h2>A brief history lesson: Turing machines</h2>
+<ul>
+<li>A great example: modern day phones</li>
+<li>“There’s an app for that”</li>
+</ul>
+</section>
+<section id="so-what-is-a-state-machine" class="slide level2">
+<h2>So what is a state machine?</h2>
+<ul>
+<li>A subset of Turing machine</li>
+<li>Takes input</li>
+<li>Stores data about it’s current state</li>
+<li>Returns an output</li>
+</ul>
+</section>
+<section id="i-will-not-be-talking-about-transitions-systems"
+class="slide level2">
+<h2>I will not be talking about transitions systems</h2>
+<ul>
+<li>Technically a form of state machine, but a non-finite version of
+it</li>
+<li>More akin to functions with static variables</li>
+<li>I’ll be talking about <em>finite</em> state machines, also called
+finite state automata</li>
+<li>The PIO on the RP2040 is a form of a non-finite state machine like
+this</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>A finite state machine has:</p>
+<ul>
+<li>A limited number of states</li>
+<li>A limited number of inputs that it can respond to</li>
+</ul>
+<p>It is a subset of a Turing complete machine</p>
+</section>
+<section id="why-would-we-want-to-do-this" class="slide level2">
+<h2>Why would we want to do this?</h2>
+<p>“The purpose of abstracting is not to be vague, but to create a new
+semantic level in which one can be absolutely precise.”</p>
+</section>
+<section id="so-what-is-a-state-machine-1" class="slide level2">
+<h2>So… what is a state machine?</h2>
+<p>To explain a bit better, I’m going to introduce two ways when can
+represent state machines, that even the marketing team can
+understand.</p>
+<p>(Sorry, marketing people, we love you.)</p>
+</section>
+<section id="state-tables" class="slide level2">
+<h2>State tables</h2>
+<p>This works great for deterministic finite state machines.</p>
+</section>
+<section id="state-diagrams" class="slide level2">
+<h2>State diagrams</h2>
+<ul>
+<li>A directed graph, showing which events cause which transitions in
+different states</li>
+</ul>
+</section>
+<section id="state-diagrams-1" class="slide level2">
+<h2>State diagrams</h2>
+<p>This is <em>not</em> a flowchart!</p>
+</section>
+<section id="super-states-and-sub-states" class="slide level2">
+<h2>Super-states and sub-states</h2>
+<ul>
+<li>Can have it’s own entry and exit actions</li>
+<li>Similar to inheritance in OOP</li>
+</ul>
+</section>
+<section
+id="which-sub-state-should-you-transition-to-when-transitioning-to-a-super-state"
+class="slide level2">
+<h2>Which sub-state should you transition to when transitioning to a
+super-state?</h2>
+<ul>
+<li>The super-states starting sub-state</li>
+<li>Shallow history</li>
+<li>Deep history</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section>
+<section id="extended-state-machines" class="slide level2">
+<h2>Extended state machines</h2>
+<ul>
+<li>Guard conditions
+<ul>
+<li>Only allow a transition to happen out of a state if certain
+conditions are met.</li>
+<li>The state machine is no longer deterministic</li>
+</ul></li>
+</ul>
+</section>
+<section id="extended-state-machines-1" class="slide level2">
+<h2>Extended state machines</h2>
+<ul>
+<li>Determine which transition to follow based on a set of
+conditions</li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section>
+<section class="slide level2">
+
+</section>
+<section class="slide level2">
+
+</section>
+<section class="slide level2">
+
+</section>
+<section class="slide level2">
+
+</section>
+<section id="why-would-we-want-to-do-this-1" class="slide level2">
+<h2>Why would we want to do this?</h2>
+<p>In other words: Constraints can help make our code better</p>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources</h2>
+</section>
+<section id="contact-info" class="slide level2">
+<h2>Contact info</h2>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="reveal.js/plugin/notes/notes.js"></script>
+  <script src="reveal.js/plugin/search/search.js"></script>
+  <script src="reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ],
+
+		// The "normal" size of the presentation, aspect ratio will
+		// be preserved when the presentation is scaled to fit different
+		// resolutions. Can be specified using percentage units.
+		width: 1280,
+		height: 720,
+
+		// Factor of the display size that should remain empty around
+		// the content
+		margin: 0.20,
+
+		// Bounds for smallest/largest possible scale to apply to content
+		minScale: 0.2,
+		maxScale: 2.0
+      });
+    </script>
+    </body>
+</html>
