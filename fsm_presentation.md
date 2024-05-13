@@ -102,7 +102,9 @@ Using a Turing machine, we can compute anything that is computable.
 
 ## The impact
 
-What was originally a theoretical thought experiment became the basis for computing today.
+- What was originally a theoretical thought experiment became the basis for computing today.
+- Instead of single use machines, we have machines which can be re-purposed for many different things.
+- Unlimited potential
 
 
 ## Turing completeness
@@ -117,23 +119,6 @@ What was originally a theoretical thought experiment became the basis for comput
 -   We have more inputs and outputs
 -   We don't have unlimited memory
 -   Today's computers are incredibly versatile
-
-
-## Unlimited potential
-
--   We are no longer limited to machines that do one thing
--   Math
-    -   Computing digits of pi
-    -   Discovering prime numbers
-    -   Calculating hashes of other values
--   Procedural problems
-    -   Solving mazes
-    -   Sorting lists
-
-
-## We build on these small solutions
-
-...to help us solve ever-larger challenges.
 
 
 ## "There's an app for that"
@@ -179,7 +164,7 @@ What was originally a theoretical thought experiment became the basis for comput
 
 # _Finite_-state machines
 
-## I will be talking about finite-state machines
+## Finite-state machines
 
 -   (Also called finite-state automata)
 -   ...and their extended versions
@@ -220,6 +205,7 @@ What was originally a theoretical thought experiment became the basis for comput
     -   (As opposed to a Moore Machine)
 -   Adds some complexity
 -   ...but can be useful
+-   Example: Flashing UI
 
 
 # Two ways to represent state machines
@@ -289,7 +275,7 @@ When creating a UI, when a user hits the back button, we may not want to start t
 
 ## Regular junctions
 
--   TK
+-   A set of instructions that are completed as the machine flows through it.
 -   Example: AFK
 
 
@@ -303,7 +289,7 @@ Try to stay as close to simple as possible, else you end up negating the benefit
 ## State table example
 
 - More compact
-- Work best for _truly_ finite-state machines
+- Work best for simpler finite-state machines
     - More complex setups require notes for explanation
 
 
@@ -335,6 +321,12 @@ Try to stay as close to simple as possible, else you end up negating the benefit
 
 ## Which to choose?
 
+-   State pattern
+    -   Bottom-up
+    -   Easier to programmatically create state machines TK?
+-   State table
+-   -   Top-down
+-   -   All information is in one place
 
 
 # Where can you use state machines?
@@ -343,7 +335,7 @@ Try to stay as close to simple as possible, else you end up negating the benefit
 
 You don't want to mess this up, because
 
-> you'll have to answer to the Coca Cola company
+> you're gonna have to answer to the Coca Cola company
 
 
 ## TTL logic
@@ -361,6 +353,7 @@ You don't want to mess this up, because
 
 ## Back-end services
 
+-   Example: Order processing
 
 
 ## Video games
@@ -377,10 +370,14 @@ You don't want to mess this up, because
 
 ## Cons
 
+-   Steers towards object-oriented code
+-   It can be easy to over-use global variables
+-   Requires up-front planning and foresight
 
 
 ## Pros
 
+-   Enforces discipline and structure in planning
 
 
 ## Not appropriate for every situation
