@@ -1,10 +1,3 @@
----
-title:    Dr. StateMachine
-author:   Leamon Randall
-
----
-
-
 # Dr. StateMachine
 
 ## or: How I learned to stop worrying and love the finite
@@ -253,6 +246,8 @@ When creating a UI, when a user hits the back button, we may not want to start t
 
 # Orthogonal state machines
 
+## Orthogonal state machines
+
 - We don't need to limit ourselves to one state machine in our program
 - We can have several running simultaneously
 - They can even talk to each other, sending events (input) to one-another
@@ -300,7 +295,7 @@ Try to stay as close to simple as possible, else you end up negating the benefit
 
 # How can you create state machines?
 
-## Three different possibilities
+## Three common possibilities
 
 
 ## Nested switch/case statements
@@ -322,16 +317,19 @@ Try to stay as close to simple as possible, else you end up negating the benefit
 ## Which to choose?
 
 -   State pattern
-    -   Bottom-up
-    -   Easier to programmatically create state machines TK?
+    -   Bottom-up (more organic)
+    -   A bit easier to programmatically create state machines  TK?
 -   State table
--   -   Top-down
--   -   All information is in one place
+    -   Top-down
+    -   All information is in one place
+    -   Can do some optimizations if speed is an absolute priority
 
 
 # Where can you use state machines?
 
 ## Embedded systems
+
+CRM 114
 
 You don't want to mess this up, because
 
@@ -378,14 +376,30 @@ You don't want to mess this up, because
 ## Pros
 
 -   Enforces discipline and structure in planning
+-   Limits opportunities for bugs
+-   Is easily extensible when a program requires changes
+-   Easy to communicate and represent visually
 
 
 ## Not appropriate for every situation
 
+-   We could create a state machine that added every 8-bit integer...
+-   ...but it would be ridiculous to do so
+-   Like using a series of if/then/else statements to test each possible number for even or odd
+
+<https://andreasjhkarlsson.github.io/jekyll/update/2023/12/27/4-billion-if-statements.html>
 
 
 ## Start simple, and extend as needed
 
+-   Deterministic
+    -   Simple state machines
+    -   Hierarchical
+    -   Non-conditional junctions
+    -   Mealy machines
+-   Non-deterministic
+    -   Guard conditions
+    -   Conditional junctions
 
 
 # Why?
