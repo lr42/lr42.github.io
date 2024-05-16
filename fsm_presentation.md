@@ -90,14 +90,11 @@ _ _ _
 Using a Turing machine, we can compute anything that is computable.
 
 
-## But Charles did it first!
-
-
 ## The impact
 
 - What was originally a theoretical thought experiment became the basis for computing today.
 - Instead of single use machines, we have machines which can be re-purposed for many different things.
-- Unlimited potential
+- Nearly unlimited potential
 
 
 ## Turing completeness
@@ -429,9 +426,13 @@ Constraints, when used properly, can help make our code better.
 
 # The end
 
+_ _ _
+
+
+
 ## Credits
 
-(if needed)
+To come...
 
 
 # Resources
@@ -460,14 +461,19 @@ Constraints, when used properly, can help make our code better.
 -   <https://www.allaboutcircuits.com/textbook/digital/chpt-11/finite-state-machines/>
 
 
-# Contact info
+# We'll meet again...
 
 ## Leamon Randall
+
+-   Website
+-   Github <lr42.github.io>
+    -   StaMa library
+-   LinkedIn
+
+(Include QR code.)
 
 
 ## Notes
 
--   Show internal v. external handling of events
 -   Note that states do not need to be static, they can be active: "running, moving, jumping, fetching".
--   Include the fact that you can have multiple state machines within your program.
 
